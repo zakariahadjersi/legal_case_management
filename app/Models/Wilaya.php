@@ -13,4 +13,9 @@ class Wilaya extends Model
         'matricule',
         'nom'
     ];
+
+    public function communes()
+    {
+        return $this->hasMany(Commune::class);
+    }
 }

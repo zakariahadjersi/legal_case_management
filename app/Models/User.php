@@ -43,4 +43,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function dossierjustices(){
+        return $this->hasMany(DossierJustice::class);
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class);
+    } 
 }

@@ -13,4 +13,14 @@ class Commune extends Model
         'matricule',
         'nom'
     ];
+
+    public function wilaya()
+    {
+        return $this->belongsTo(Wilaya::class);
+    }
+
+    public function agence()
+    {
+        return $this->hasOne(Agence::class);
+    }
 }

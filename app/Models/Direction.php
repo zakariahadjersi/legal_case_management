@@ -13,4 +13,14 @@ class Direction extends Model
         'matricule',
         'nom'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function agences()
+    {
+        return $this->hasMany(Agence::class);
+    }
 }

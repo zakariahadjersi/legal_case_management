@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('adresse');
             $table->string('telephone');
             $table->string('email')->unique();
+            $table->integer('direction_id')->unsigned();
+            $table->integer('commune_id')->unsigned(); 
             $table->timestamps();
         });
     }

@@ -16,4 +16,19 @@ class Agence extends Model
         'telephone',
         'email'
     ];
+
+    public function dossierjustices()
+    {
+        return $this->hasMany(DossierJustice::class);
+    }
+
+    public function direction()
+    {
+        return $this->belongsTo(Direction::class);
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class);
+    }
 }

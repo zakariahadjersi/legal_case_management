@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('matricule')->nullable();
             $table->string('nom');
+            $table->integer('wilaya_id')->unsigned();
             $table->timestamps();
         });
     }
