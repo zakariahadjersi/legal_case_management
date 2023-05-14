@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('agences', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule');
+            $table->string('matricule')->nullable();
             $table->string('nom');
             $table->string('adresse');
             $table->string('telephone');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }

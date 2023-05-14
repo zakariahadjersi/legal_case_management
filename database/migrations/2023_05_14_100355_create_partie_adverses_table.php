@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('audiences', function (Blueprint $table) {
+        Schema::create('partie_adverses', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable();
-            $table->string('resultat')->nullable();
+            $table->string('nom');
+            $table->string('prénom')->nullable();
+            $table->string('email')->unique();
+            $table->string('telephone')->nullable();
+            $table->string('adresse')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('audiences');
+        Schema::dropIfExists('partie_adverses');
     }
 };

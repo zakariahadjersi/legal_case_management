@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('dossier_justices', function (Blueprint $table) {
             $table->id();
             $table->string('code_affaire');
-            $table->float('budget');
-            $table->date('date_fin');    
+            $table->float('budget')->nullable();
+            $table->date('date_fin')->nullable();    
             $table->timestamps();
         });
     }

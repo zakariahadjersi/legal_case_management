@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('communes', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule');
+            $table->string('matricule')->nullable();
             $table->string('nom');
             $table->timestamps();
         });
