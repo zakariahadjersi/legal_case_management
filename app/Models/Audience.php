@@ -13,4 +13,19 @@ class Audience extends Model
         'date',
         'resultat'
     ];
+
+    public function dossierJustice()
+    {
+        return $this->belongsTo(DossierJustice::class);
+    }
+
+    public function court()
+    {
+        return $this->belongsTo(Court::class);
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

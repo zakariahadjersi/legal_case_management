@@ -44,12 +44,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function dossierjustices(){
+    public function dossierJustices(){
         return $this->hasMany(DossierJustice::class);
     }
 
     public function direction()
     {
         return $this->belongsTo(Direction::class);
-    } 
+    }
+    
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 }

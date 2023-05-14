@@ -16,4 +16,17 @@ class PartieAdverse extends Model
         'telephone',
         'adresse'
     ];
+
+    public function dossierJustices()
+    {
+        return $this->hasMany(DossierJustice::class);
+    }
+
+    public function contratNature(){
+        return $this->hasOne(ContratNature::class);
+    }
+
+    public function groupeTier(){
+        return $this->hasOne(GroupeTier::class);
+    }
 }

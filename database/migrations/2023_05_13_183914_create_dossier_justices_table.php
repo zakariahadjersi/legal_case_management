@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('code_affaire');
             $table->string('state');
+            $table->string('secteur');
             $table->float('budget')->nullable();
             $table->date('date_fin')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('avocat_id')->unsigned();
-            $table->integer('agence_id')->unsigned();      
+            $table->integer('agence_id')->unsigned();
+            $table->integer('partie_adverse_id')->unsigned();      
             $table->timestamps();
             
         });

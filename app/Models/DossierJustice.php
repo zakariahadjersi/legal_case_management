@@ -12,7 +12,8 @@ class DossierJustice extends Model
     protected $fillable = [
         'code_affaire',
         'budget',
-        'date_fin'
+        'date_fin',
+        'state'
     ];
 
     protected $enums = [
@@ -22,6 +23,10 @@ class DossierJustice extends Model
             'finished',
             'won',
             'lost',
+        ],
+        'secteur' => [
+            'personel',
+            'commerciale'
         ],
     ];
 
@@ -33,6 +38,11 @@ class DossierJustice extends Model
     public function getStateAttribute($value)
     {
         return array_search($value, $this->enums['state']);
+    }
+
+    public function getSecteurAttribute($value)
+    {
+        return ucfirst($this->enums['secteur'][$value]);
     }
 
     public function user(){
@@ -47,4 +57,16 @@ class DossierJustice extends Model
     {
         return $this->belongsTo(Agence::class);
     }
+
+    public function audiences()
+    {
+        return $this->hasMany(Audience::class);
+    }
+
+    public function partieAdverse()
+    {
+        return $this->belongsTo(PartieAdverse::class);
+    }
+
+    
 }

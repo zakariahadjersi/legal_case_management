@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->string('resultat')->nullable();
+            $table->integer('dossier_justice_id')->unsigned();
+            $table->integer('court_id')->unsigned();
             $table->timestamps();
         });
     }

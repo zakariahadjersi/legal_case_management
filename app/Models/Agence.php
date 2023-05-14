@@ -17,7 +17,7 @@ class Agence extends Model
         'email'
     ];
 
-    public function dossierjustices()
+    public function dossierJustices()
     {
         return $this->hasMany(DossierJustice::class);
     }

@@ -15,4 +15,8 @@ class GroupeTier extends Model
         'groupe',
         'secteur'
     ];
+
+    public function partieAdverses(){
+        return $this->belongsToMany(PartieAdverse::class);
+    }
 }

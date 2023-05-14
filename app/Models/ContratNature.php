@@ -12,4 +12,8 @@ class ContratNature extends Model
     protected $fillable = [
         'intitulle'
     ];
+
+    public function partieAdverses(){
+        return $this->belongsToMany(PartieAdverse::class);
+    }
 }

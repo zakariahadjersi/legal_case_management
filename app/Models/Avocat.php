@@ -17,7 +17,7 @@ class Avocat extends Model
         'adresse'
     ];
 
-    public function dossierjustices(){
+    public function dossierJustices(){
         return $this->hasMany(DossierJustice::class);
     }
 }

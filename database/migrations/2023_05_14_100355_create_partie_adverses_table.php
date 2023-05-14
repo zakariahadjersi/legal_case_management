@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telephone')->nullable();
             $table->string('adresse')->nullable();
+            $table->integer('contrat_nature_id')->unsigned();
+            $table->integer('groupe_tier_id')->unsigned();
             $table->timestamps();
         });
     }

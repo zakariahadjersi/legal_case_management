@@ -13,4 +13,14 @@ class Document extends Model
         'path',
         'nom'
     ];
+
+    public function audience()
+    {
+        return $this->belongsTo(Audience::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
