@@ -27,6 +27,11 @@ class Agence extends Model
         return $this->belongsTo(Direction::class);
     }
 
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function commune()
     {
         return $this->belongsTo(Commune::class);

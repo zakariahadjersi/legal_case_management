@@ -49,9 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(DossierJustice::class);
     }
 
-    public function direction()
+    public function agence()
     {
-        return $this->belongsTo(Direction::class);
+        return $this->belongsTo(Agence::class);
     }
     
     public function documents()
