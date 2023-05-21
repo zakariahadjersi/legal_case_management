@@ -13,15 +13,27 @@ return new class extends Migration
     {
         Schema::create('dossier_justices', function (Blueprint $table) {
             $table->id();
-            $table->string('code_affaire');
-            $table->string('state');
-            $table->string('secteur');
+            $table->string('code_affaire')->default('');
+            $table->enum('state',[
+                'Préparation',
+                'inspection de travail',
+                'à la tribunal',
+                'à la cour',
+                'à la cour suprême',
+                'En Cours',
+                'Gagné',
+                'Perdu',
+            ])->nullable();
+            $table->enum('secteur',[
+                'Personnel',
+                'Commerciale'
+            ])->nullable();
             $table->float('budget')->nullable();
             $table->date('date_fin')->nullable();
-            $table->integer('user_id')->unsigned();
-            $table->integer('avocat_id')->unsigned();
-            $table->integer('agence_id')->unsigned();
-            $table->integer('partie_adverse_id')->unsigned();      
+            $table->integer('user_id')->unsigned()->default(0);
+            $table->integer('avocat_id')->unsigned()->nullable();
+            $table->integer('agence_id')->unsigned()->nullable();
+            $table->integer('partie_adverse_id')->unsigned()->nullable();      
             $table->timestamps();
             
         });

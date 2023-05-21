@@ -23,10 +23,10 @@ class PartieAdverse extends Model
     }
 
     public function contratNature(){
-        return $this->hasOne(ContratNature::class);
+        return $this->belongsTo(ContratNature::class);
     }
 
     public function groupeTier(){
-        return $this->hasOne(GroupeTier::class);
+        return $this->belongsTo(GroupeTier::class);
     }
 }

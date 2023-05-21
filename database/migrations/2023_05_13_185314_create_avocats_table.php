@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('avocats', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prénom');
-            $table->string('email')->unique();
-            $table->string('telephone')->nullable();
+            $table->string('nomprénom');
+            $table->string('email')->unique()->nullable();
+            $table->string('telephone');
             $table->string('adresse')->nullable();
             $table->timestamps();
         });

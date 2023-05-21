@@ -14,6 +14,6 @@ class ContratNature extends Model
     ];
 
     public function partieAdverses(){
-        return $this->belongsToMany(PartieAdverse::class);
+        return $this->hasMany(PartieAdverse::class);
     }
 }

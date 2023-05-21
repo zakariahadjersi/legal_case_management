@@ -15,37 +15,32 @@ class DossierJustice extends Model
         'code_affaire',
         'budget',
         'date_fin',
-        'state'
+        'state',
+        'secteur',
+        'avocat_id',
+        'user_id'
     ];
 
     protected $enums = [
         'state' => [
-            'started',
-            'in_progress',
-            'finished',
-            'won',
-            'lost',
+            'Préparation',
+            "à l\'inspection de travail",
+            'à la tribunal',
+            'à la cour',
+            'à la cour suprême',
+            'En Cours',
+            'Gagné',
+            'Perdu',
         ],
         'secteur' => [
-            'personel',
-            'commerciale'
+            'Personnel',
+            'Commerciale'
         ],
     ];
 
-    public function setStateAttribute($value)
-    {
-        $this->attributes['state'] = $this->enums['state'][$value];
-    }
+   
 
-    public function getStateAttribute($value)
-    {
-        return array_search($value, $this->enums['state']);
-    }
-
-    public function getSecteurAttribute($value)
-    {
-        return ucfirst($this->enums['secteur'][$value]);
-    }
+    
 
     public function user(){
         return $this->belongsTo(User::class);

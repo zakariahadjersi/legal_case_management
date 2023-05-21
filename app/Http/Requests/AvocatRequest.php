@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DossierJusticeRequest extends FormRequest
+class AvocatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class DossierJusticeRequest extends FormRequest
     public function rules()
     {
         return [
-            'state'   => 'required',
-            'secteur' => 'required',
-            'budget'  => 'regex:/^\d+(\.\d+)?$/'
+            'nomprénom' => 'required|min:5|max:255',
+            'telephone' => 'required|regex:/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/'
         ];
     }
 
@@ -39,7 +38,8 @@ class DossierJusticeRequest extends FormRequest
     public function attributes()
     {
         return [
-            'state' => 'Etat',
+            'nomprénom' => 'nom et prénom ',
+            'telephone' => 'numéro de telephone'
         ];
     }
 
@@ -51,9 +51,8 @@ class DossierJusticeRequest extends FormRequest
     public function messages()
     {
         return [
-            'state'   => 'Etat est requis',
-            'secteur' => 'Secteur est requis',
-            'budget'  => 'le budget et un numéro et en DA'
+            'nomprénom' => 'nom et prénom sont requis ',
+            'telephone' => 'numéro de telephone est requis'
         ];
     }
 }

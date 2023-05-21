@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Avocat extends Model
 {
+    use CrudTrait;
     use HasFactory;
 
     protected $fillable = [
-        'nom',
-        'prénom',
+        'nomprénom',
         'email',
         'telephone',
         'adresse'
