@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AudienceRequest;
+use App\Models\PartieAdverse;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -31,6 +32,11 @@ class AudienceCrudController extends CrudController
         CRUD::setEntityNameStrings('audience', 'audiences');
     }
 
+    protected function setupShowOperation()
+    {
+        $this->setupListOperation();
+        $this->autoSetupShowOperation();
+    }
     /**
      * Define what happens when the List operation is loaded.
      * 
@@ -40,6 +46,18 @@ class AudienceCrudController extends CrudController
     protected function setupListOperation()
     {
         CRUD::column('date');
+        CRUD::addColumn([
+            'name'      =>  'dossier_justice_id',
+            'label'     =>  'Dossier Concerné',
+            'type'      =>  'select',
+            'attribute' =>  'code_affaire',
+            'entity'    =>  'dossierJustice',
+         ]);
+         CRUD::addColumn([
+            'name'      =>  'typecourt',
+            'label'     =>  'Type Cour',
+            'type'      =>  'enum',
+        ]);
         CRUD::column('resultat');
 
         /**
@@ -59,8 +77,33 @@ class AudienceCrudController extends CrudController
     {
         CRUD::setValidation(AudienceRequest::class);
 
-        CRUD::field('date');
-        CRUD::field('resultat');
+        CRUD::field('date')->label('Date Audience');
+        CRUD::field('heur')->label('Heur Audience');
+        CRUD::addField([
+            'name'      =>  'dossier_justice_id',
+            'label'     =>  'Dossier Concerné',
+            'type'      =>  'select',
+            'attribute' =>  'code_affaire',
+            'entity'    =>  'dossierJustice',
+         ]);
+        CRUD::addField([
+            'name'      =>  'typecourt',
+            'label'     =>  'Type Cour',
+            'type'      =>  'enum',
+        ]);
+        CRUD::addField([
+            'name'      =>  'court_id',
+            'key'       =>  'adress',
+            'label'     =>  'Adresse de Cour',
+            'type'      =>  'select',
+            'attribute' =>  'adresse',
+            'entity'    =>  'court'
+        ]);
+        CRUD::addField([
+            'name'      =>  'resultat',
+            'label'     =>  'Resultat',
+            'type'      =>  'enum',
+        ]);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

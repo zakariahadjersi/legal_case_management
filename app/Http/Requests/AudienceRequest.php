@@ -25,7 +25,9 @@ class AudienceRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+             'date' => 'required',
+             'typecourt' => 'required',
+             'dossier_justice_id' => 'required'
         ];
     }
 
@@ -37,7 +39,9 @@ class AudienceRequest extends FormRequest
     public function attributes()
     {
         return [
-            //
+            'date' => 'Date',
+            'typecourt' => 'Type Cour',
+            'dossier_justice_id' => 'Code-affaire'
         ];
     }
 
@@ -49,7 +53,9 @@ class AudienceRequest extends FormRequest
     public function messages()
     {
         return [
-            //
+            'date' => 'Date est requis',
+            'typecourt' => 'Type Cour est requis',
+            'dossier_justice_id' => 'Code-affaire est requis'
         ];
     }
 }

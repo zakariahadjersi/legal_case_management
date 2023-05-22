@@ -13,7 +13,25 @@ class Audience extends Model
 
     protected $fillable = [
         'date',
-        'resultat'
+        'heur',
+        'typecourt',
+        'resultat',
+        'dossier_justice_id',
+        'court_id'
+    ];
+
+    protected $enums = [
+        'typecourt' => [
+            'Inspection De Travail',
+            'Le Tribunal',
+            'La Cour',
+            'La Cour Supreme'
+        ],
+        'resultat' => [
+            'succès',
+            'perdu',
+            'reporter'
+        ]
     ];
 
     public function dossierJustice()
