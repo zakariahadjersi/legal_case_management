@@ -13,13 +13,21 @@ return new class extends Migration
     {
         Schema::create('partie_adverses', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prénom')->nullable();
-            $table->string('email')->unique();
+            $table->string('nomprénom')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('telephone')->nullable();
             $table->string('adresse')->nullable();
-            $table->integer('contrat_nature_id')->unsigned();
-            $table->integer('groupe_tier_id')->unsigned();
+            $table->enum('naturecontractant',[
+                'Administration',
+                'Collectivités locales',
+                'Entreprise public',
+                'Entreprise privée',
+                'Entreprise étrangère'
+            ])->nullable();
+            $table->string('tutelletiers')->nullable();
+            $table->string('familletiers')->nullable();
+            $table->string('groupetiers')->nullable();
+            $table->enum('secteurtiers',['Privé','Public'])->nullable();
             $table->timestamps();
         });
     }

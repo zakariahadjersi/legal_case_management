@@ -18,7 +18,8 @@ class DossierJustice extends Model
         'state',
         'secteur',
         'avocat_id',
-        'user_id'
+        'user_id',
+        'partie_adverse_id'
     ];
 
     protected $enums = [

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DossierJusticeRequest extends FormRequest
+class PartieAdverseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,9 @@ class DossierJusticeRequest extends FormRequest
     public function rules()
     {
         return [
-            'state'   => 'required',
-            'secteur' => 'required',
-            'budget'  => 'regex:/^\d+(\.\d+)?$/',
-            'partie_adverse_id' => 'required'
+            'nomprénom' => 'required|min:5|max:255',
+            'telephone' => 'regex:/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/',
+            'naturecontractant'  => 'required',
         ];
     }
 
@@ -40,8 +39,9 @@ class DossierJusticeRequest extends FormRequest
     public function attributes()
     {
         return [
-            'state' => 'Etat',
-            'partie_adverse_id' => 'Partie Adverse'
+            'nomprénom' => 'nom complete de personnel ou entreprise ',
+            'telephone' => 'numéro de telephone',
+            'naturecontractant'  => 'Nature de contractant',
         ];
     }
 
@@ -53,10 +53,8 @@ class DossierJusticeRequest extends FormRequest
     public function messages()
     {
         return [
-            'state'   => 'Etat est requis',
-            'secteur' => 'Secteur est requis',
-            'budget'  => 'le budget et un numéro et en DA',
-            'partie_adverse_id' => 'Partie Adverse est requis'
+            'nomprénom' => 'nom complete de personnel ou entreprise est requis ',
+            'naturecontractant'  => 'Nature de contractant est requis',
         ];
     }
 }
