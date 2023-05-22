@@ -25,4 +25,6 @@ Route::group([
     Route::crud('dossier-justice', 'DossierJusticeCrudController');
     Route::crud('avocat', 'AvocatCrudController');
     Route::crud('partie-adverse', 'PartieAdverseCrudController');
+    Route::crud('audience', 'AudienceCrudController');
+    Route::crud('court', 'CourtCrudController');
 }); // this should be the absolute last line of this file

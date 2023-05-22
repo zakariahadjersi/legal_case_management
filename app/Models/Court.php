@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Court extends Model
 {
+    use CrudTrait;
     use HasFactory;
 
     protected $fillable = [
@@ -18,22 +20,13 @@ class Court extends Model
 
     protected $enums = [
         'type' => [
-            'inspection de travail',
-            'le tribunal',
-            'la cour',
-            'la cour supreme'
+            'Inspection De Travail',
+            'Le Tribunal',
+            'La Cour',
+            'La Cour Supreme'
         ],
     ];
 
-    public function setTypeAttribute($value)
-    {
-        $this->attributes['type'] = $this->enums['type'][$value];
-    }
-
-    public function getTypeAttribute($value)
-    {
-        return array_search($value, $this->enums['type']);
-    }
 
     public function audiences()
     {
