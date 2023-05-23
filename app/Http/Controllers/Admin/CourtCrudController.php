@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Avocat;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\DossierJusticeRequest;
+use App\Http\Requests\CourtRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-
 /**
- * Class DossierJusticeCrudController
+ * Class CourtCrudController
  * @package App\Http\Controllers\Admin
  * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
  */
-class DossierJusticeCrudController extends CrudController
+class CourtCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\CreateOperation;
@@ -29,9 +26,9 @@ class DossierJusticeCrudController extends CrudController
      */
     public function setup()
     {
-        CRUD::setModel(\App\Models\DossierJustice::class);
-        CRUD::setRoute(config('backpack.base.route_prefix') . '/dossier-justice');
-        CRUD::setEntityNameStrings('dossier justice', 'dossier justices');
+        CRUD::setModel(\App\Models\Court::class);
+        CRUD::setRoute(config('backpack.base.route_prefix') . '/court');
+        CRUD::setEntityNameStrings('court', 'courts');
     }
 
     protected function setupShowOperation()
@@ -48,20 +45,10 @@ class DossierJusticeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-    
-        CRUD::column('code_affaire');
-        CRUD::addColumn([
-            'name'      => 'partie_adverse_id',
-            'label'     => 'Partie Adverse',
-            'type'      => 'select',
-            'attribute' => 'nomprénom',
-            'entity'    => 'partieAdverse',
-        ],);
-        CRUD::column('state')->label('Etat');
-
-        CRUD::column('secteur');
-        CRUD::column('date_fin');
-        
+        CRUD::column('type')->label('Type De Cour');
+        CRUD::column('adresse');
+        CRUD::column('telephone');
+        CRUD::column('email');
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -78,42 +65,16 @@ class DossierJusticeCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
-        CRUD::setValidation(DossierJusticeRequest::class);
-        
-        CRUD::field('code_affaire');
-        CRUD::addField([
-            'name'  => 'state',
-            'label' => 'Etat',
-            'type'  => 'enum',
-        ],);
-        
-        CRUD::addField([
-            'name'  => 'secteur',
-            'label' => 'Secteur',
-            'type'  => 'enum',
-        ],);
-        
-        CRUD::addField([
-            'name'      => 'partie_adverse_id',
-            'label'     => 'Partie Adverse',
-            'type'      => 'select',
-            'attribute' => 'nomprénom',
-            'entity'    => 'partieAdverse',
-        ],);
-        CRUD::addField([
-            'name'      => 'avocat_id',
-            'label'     => 'Avocat',
-            'type'      => 'select',
-            'attribute' => 'nomprénom',
-            'entity'    => 'avocat',
-        ],);
-        CRUD::field('budget');
-        CRUD::field('date_fin');
-        CRUD::addField([
-            'name'  => 'user_id',
-            'type'  => 'hidden',
-            'value' => backpack_user()->id,
-        ],);
+        CRUD::setValidation(CourtRequest::class);
+
+        CRUD::addfield([
+            'name'  => 'type',
+            'label' => 'Type De Cour',
+            'type'  => 'enum'
+        ]);
+        CRUD::field('adresse');
+        CRUD::field('telephone');
+        CRUD::field('email');
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

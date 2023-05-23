@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PartieAdverseRequest extends FormRequest
+class AudienceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,9 @@ class PartieAdverseRequest extends FormRequest
     public function rules()
     {
         return [
-            'nomprénom' => 'required|min:5|max:255',
-            'naturecontractant'  => 'required',
+             'date' => 'required',
+             'typecourt' => 'required',
+             'dossier_justice_id' => 'required'
         ];
     }
 
@@ -38,8 +39,9 @@ class PartieAdverseRequest extends FormRequest
     public function attributes()
     {
         return [
-            'nomprénom' => 'nom complete de personnel ou entreprise ',
-            'naturecontractant'  => 'Nature de contractant',
+            'date' => 'Date',
+            'typecourt' => 'Type Cour',
+            'dossier_justice_id' => 'Code-affaire'
         ];
     }
 
@@ -51,8 +53,9 @@ class PartieAdverseRequest extends FormRequest
     public function messages()
     {
         return [
-            'nomprénom' => 'nom complete de personnel ou entreprise est requis ',
-            'naturecontractant'  => 'Nature de contractant est requis',
+            'date' => 'Date est requis',
+            'typecourt' => 'Type Cour est requis',
+            'dossier_justice_id' => 'Code-affaire est requis'
         ];
     }
 }

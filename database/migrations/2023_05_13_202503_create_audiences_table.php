@@ -13,10 +13,21 @@ return new class extends Migration
     {
         Schema::create('audiences', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable();
-            $table->string('resultat')->nullable();
-            $table->integer('dossier_justice_id')->unsigned();
-            $table->integer('court_id')->unsigned();
+            $table->date('date');
+            $table->time('heur')->nullable();
+            $table->enum('typecourt', [
+                'Inspection De Travail',
+                'Le Tribunal',
+                'La Cour',
+                'La Cour Supreme'
+            ]);
+            $table->enum('resultat',[
+                'succès',
+                'perdu',
+                'reporter'
+            ])->nullable();
+            $table->integer('dossier_justice_id')->unsigned()->nullable();
+            $table->integer('court_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

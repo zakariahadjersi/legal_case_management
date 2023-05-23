@@ -26,7 +26,7 @@ class AvocatRequest extends FormRequest
     {
         return [
             'nomprénom' => 'required|min:5|max:255',
-            'telephone' => 'required|regex:/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/'
+            
         ];
     }
 

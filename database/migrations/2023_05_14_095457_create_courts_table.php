@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('courts', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
+            $table->enum('type', [
+                'Inspection De Travail',
+                'Le Tribunal',
+                'La Cour',
+                'La Cour Supreme'
+            ]);
             $table->string('adresse');
             $table->string('telephone')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->timestamps();
         });
     }
