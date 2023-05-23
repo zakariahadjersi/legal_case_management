@@ -48,6 +48,7 @@ class DossierJusticeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
+    
         CRUD::column('code_affaire');
         CRUD::addColumn([
             'name'      => 'partie_adverse_id',
@@ -57,6 +58,7 @@ class DossierJusticeCrudController extends CrudController
             'entity'    => 'partieAdverse',
         ],);
         CRUD::column('state')->label('Etat');
+
         CRUD::column('secteur');
         CRUD::column('date_fin');
         

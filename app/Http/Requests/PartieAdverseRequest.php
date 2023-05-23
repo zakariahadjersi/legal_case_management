@@ -26,7 +26,6 @@ class PartieAdverseRequest extends FormRequest
     {
         return [
             'nomprénom' => 'required|min:5|max:255',
-            'telephone' => 'regex:/^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/',
             'naturecontractant'  => 'required',
         ];
     }
@@ -40,7 +39,6 @@ class PartieAdverseRequest extends FormRequest
     {
         return [
             'nomprénom' => 'nom complete de personnel ou entreprise ',
-            'telephone' => 'numéro de telephone',
             'naturecontractant'  => 'Nature de contractant',
         ];
     }
