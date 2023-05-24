@@ -12,8 +12,6 @@ Route::group(['middleware' => [config('backpack.base.web_middleware', 'web')]], 
     //routes here
     Route::get('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController@showRegistrationForm')->name('backpack.auth.register');
     Route::post('admin/register', 'App\Http\Controllers\Admin\Auth\RegisterController@register');
-    Route::get('admin/dashboard', 'App\Http\Controllers\Admin\AdminDashboardController@dashboard')->name('dashboard');
-    Route::get('admin/dashboard/chart', 'App\Http\Controllers\Admin\AdminDashboardController@getChartData')->name('chart');
     Route::get('/', 'App\Http\Controllers\Admin\AdminDashboardController@redirect')->name('backpack');
 });
 
@@ -25,6 +23,9 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
+    
+    Route::get('admin/dashboard', 'App\Http\Controllers\Admin\AdminDashboardController@dashboard')->name('dashboard');
+    Route::get('admin/dashboard/chart', 'App\Http\Controllers\Admin\AdminDashboardController@getChartData')->name('chart');
     Route::crud('dossier-justice', 'DossierJusticeCrudController');
     Route::crud('avocat', 'AvocatCrudController');
     Route::crud('partie-adverse', 'PartieAdverseCrudController');
