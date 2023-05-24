@@ -74,15 +74,17 @@ ksort($dataset['count']);
 return [
     'labels' => $labels,
     'datasets' => array_values($dataset['count']),
-    
 ];
 }
 
 public function dashboard()
 {
    //   $chart = $this->getChartData();
-    $latestAudience = Audience::latest()->first();
-
+    //$latestAudience = Audience::latest()->first();
+    $latestAudience = Audience::orderBy('created_at', 'desc')
+                    ->limit(1)
+                    ->pluck('date')
+                    ->first();
     return view(backpack_view('dashboard'), compact('latestAudience'));
 }
 

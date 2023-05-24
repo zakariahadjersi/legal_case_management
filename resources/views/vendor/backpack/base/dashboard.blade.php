@@ -34,7 +34,7 @@
         <div class="card">
             <div class="card-header">Prochaine Audience</div>
             <div class="card-body">
-                {{ $latestAudience }}
+                {{$latestAudience}}
             </div>
         </div>
     </div>       

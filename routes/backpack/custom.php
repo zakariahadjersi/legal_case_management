@@ -23,9 +23,9 @@ Route::group([
     ),
     'namespace'  => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
-    
-    Route::get('admin/dashboard', 'App\Http\Controllers\Admin\AdminDashboardController@dashboard')->name('dashboard');
     Route::get('admin/dashboard/chart', 'App\Http\Controllers\Admin\AdminDashboardController@getChartData')->name('chart');
+    Route::get('admin/dashboard', 'App\Http\Controllers\Admin\AdminDashboardController@dashboard')->name('dashboard');
+    
     Route::crud('dossier-justice', 'DossierJusticeCrudController');
     Route::crud('avocat', 'AvocatCrudController');
     Route::crud('partie-adverse', 'PartieAdverseCrudController');
