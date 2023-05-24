@@ -40,7 +40,10 @@
     </div>       
 </div>
 <div class="row">
-    <canvas id="myChart" style="display: block; box-sizing: border-box; height: 400px; width: 900px;"></canvas>
+    <canvas id="myChart" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
+</div>
+<div class="row">
+    <canvas id="myChart2" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
 </div>
 
 @endsection 
@@ -63,7 +66,6 @@
                 'au tribunal',
                 'à la cour',
                 'à la cour suprême',
-                'En Cours',
                 'Gagné',
                 'Perdu',
             ],
@@ -72,7 +74,7 @@
                 {
                     label: 'Etat des affaires juridiques',
                     data: json.datasets,
-                    borderWidth: 1.5
+                    borderWidth: 2
                 }
                 ]
         },
@@ -91,4 +93,40 @@
 
   
 </script>
+<script>
+    const ctx2 = document.getElementById('myChart2');
+  
+    fetch("{{ route('chart')}}")
+    .then(response => response.json())
+    .then(json => {
+          new Chart(ctx2, {
+          type: 'bar',
+          data: {
+            labels: [
+            'Commerciale','Personnel'
+              ],
+              
+            datasets: [
+                  {
+                      label: 'Affaires juridiques par secteur',
+                      data: json.datasets2,
+                      borderWidth: 2
+                  }
+                  ]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+              ticks: {
+                  precision: 0
+                  }
+              }
+            }
+          }
+        });
+  });
+  
+    
+  </script>
 @endsection 

@@ -71,9 +71,24 @@ foreach ($labels as $state) {
 
 ksort($dataset['count']);
 
+$secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
+    ->groupBy('secteur')
+    ->get();
+
+// Create an array to store the result
+$results2 = [];
+
+// Iterate through each "secteur" and assign the count to the result array
+foreach ($secteurs as $secteur) {
+    $results2[$secteur->secteur] = $secteur->count;
+}
+
+
+ksort($results2);
 return [
     'labels' => $labels,
     'datasets' => array_values($dataset['count']),
+    'datasets2'=> $results2
 ];
 }
 
@@ -81,7 +96,7 @@ public function dashboard()
 {
    //   $chart = $this->getChartData();
     //$latestAudience = Audience::latest()->first();
-    $latestAudience = Audience::orderBy('created_at', 'desc')
+    $latestAudience = Audience::orderBy('date', 'asc')
                     ->limit(1)
                     ->pluck('date')
                     ->first();
