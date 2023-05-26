@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('matricule')->nullable();
             $table->string('nom');
             $table->string('adresse');
-            $table->string('telephone');
-            $table->string('email')->unique();
+            $table->string('telephone')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->integer('direction_id')->unsigned();
             $table->integer('commune_id')->unsigned(); 
             $table->timestamps();

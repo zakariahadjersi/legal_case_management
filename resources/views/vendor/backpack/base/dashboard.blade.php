@@ -34,16 +34,28 @@
         <div class="card">
             <div class="card-header">Prochaine Audience</div>
             <div class="card-body">
-                {{$latestAudience}}
+                {{$latestAudience ?? 'aucune audience prévue'}}
             </div>
         </div>
     </div>       
 </div>
+<div style="margin-left: 100px;" class="row">
+  <form class="form-group row" id="agenceForm">
+    <label class="col-md-6 col-form-label" for="agenceSelect">Sélectionnez une agence :</label>
+    <select class="form-control form-control-lg" id="agenceSelect" name="agence_id">
+      <option value="0">Please select</option>
+      @foreach($agences as $agence)
+        <option value="{{ $agence->id }}">{{ $agence->nom }}</option>
+      @endforeach
+    </select>
+    <button class="btn btn-square btn-block btn-secondary active" type="submit">Sélectionnez</button>
+  </form>
+    </div>
 <div class="row">
-    <canvas id="myChart" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
+  <canvas id="myChart" width="800" height="400" ></canvas>
 </div>
 <div class="row">
-    <canvas id="myChart2" style="display: block; box-sizing: border-box; height: 400px; width: 800px;"></canvas>
+  <canvas id="myChart2" width="800" height="400" ></canvas>
 </div>
 
 @endsection 
@@ -53,32 +65,30 @@
 
 <script>
   const ctx = document.getElementById('myChart');
+  const form = document.getElementById('agenceForm');
 
-  fetch("{{ route('chart')}}")
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const agenceId = document.getElementById('agenceSelect').value;
+
+    fetch("{{ route('chart') }}?agence_id=" + agenceId)
   .then(response => response.json())
   .then(json => {
         new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: [
-                'Préparation',
-                "à l\'inspection de travail",
-                'au tribunal',
-                'à la cour',
-                'à la cour suprême',
-                'Gagné',
-                'Perdu',
-            ],
-            
+          labels: json.labels,
           datasets: [
                 {
                     label: 'Etat des affaires juridiques',
                     data: json.datasets,
-                    borderWidth: 2
                 }
                 ]
         },
         options: {
+          responsive: true, // Allow the chart to be responsive
+          maintainAspectRatio: false,
           scales: {
             y: {
               beginAtZero: true,
@@ -90,13 +100,19 @@
         }
       });
 });
-
+  });
   
 </script>
 <script>
     const ctx2 = document.getElementById('myChart2');
-  
-    fetch("{{ route('chart')}}")
+    const form2 = document.getElementById('agenceForm');
+
+form2.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const agenceId = document.getElementById('agenceSelect').value;
+
+  fetch("{{ route('chart') }}?agence_id=" + agenceId)
     .then(response => response.json())
     .then(json => {
           new Chart(ctx2, {
@@ -105,12 +121,10 @@
             labels: [
             'Commerciale','Personnel'
               ],
-              
             datasets: [
                   {
                       label: 'Affaires juridiques par secteur',
-                      data: json.datasets2,
-                      borderWidth: 2
+                      data: json.datasets2,          
                   }
                   ]
           },
@@ -126,7 +140,7 @@
           }
         });
   });
+});    
+</script>
   
-    
-  </script>
 @endsection 

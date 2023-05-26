@@ -27,7 +27,7 @@ class DossierJusticeRequest extends FormRequest
         return [
             'state'   => 'required',
             'secteur' => 'required',
-            'budget'  => 'regex:/^\d+(\.\d+)?$/',
+            //'budget'  => 'regex:/^\d+(\.\d+)?$/',
             'partie_adverse_id' => 'required'
         ];
     }
@@ -55,7 +55,7 @@ class DossierJusticeRequest extends FormRequest
         return [
             'state'   => 'Etat est requis',
             'secteur' => 'Secteur est requis',
-            'budget'  => 'le budget et un numéro et en DA',
+            //'budget'  => 'le budget et un numéro et en DA',
             'partie_adverse_id' => 'Partie Adverse est requis'
         ];
     }

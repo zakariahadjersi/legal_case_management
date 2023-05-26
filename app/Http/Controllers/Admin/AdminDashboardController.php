@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Agence;
 use App\Models\Audience;
 use Illuminate\Support\Facades\DB;
 use App\Models\DossierJustice;
@@ -16,15 +17,26 @@ class AdminDashboardController extends Controller
 
 
 
-public function getChartData()
+public function getChartData(Request $request)
 {
+    $labels = [
+        'en préparation',
+        "à l'inspection de travail",
+        'au tribunal',
+        'à la cour',
+        'à la cour suprême',
+        'Gagné',
+        'Perdu',
+    ];
+
+    $agenceId = $request->input('agence_id');
   /*  
     $results = DossierJustice::select('state', DB::raw('COUNT(*) as count'))
     ->groupBy('state')
     ->get()
     ->toArray();
 */
-   $results = DB::table('dossier_justices')
+ /*  $results = DB::table('dossier_justices')
     ->rightJoin(
         DB::raw("
             (SELECT 'Préparation' AS state UNION ALL
@@ -44,16 +56,7 @@ public function getChartData()
     ->groupBy('states.state')
     ->get();
 
-$labels = [
-    'Préparation',
-    "à l'inspection de travail",
-    'au tribunal',
-    'à la cour',
-    'à la cour suprême',
-    'En Cours',
-    'Gagné',
-    'Perdu',
-];
+
 
 $dataset = [
     'count' => [],
@@ -70,8 +73,23 @@ foreach ($labels as $state) {
 }
 
 ksort($dataset['count']);
+*/
+$states = DossierJustice::select('state', DB::raw('COUNT(*) as count'))
+    ->where('agence_id', $agenceId)
+    ->groupBy('state')
+    ->get();
 
+// Create an array to store the result
+$results = [];
+
+// Iterate through each "secteur" and assign the count to the result array
+foreach ($states as $state) {
+    $results[$state->state] = $state->count;
+}
+
+ksort($results);
 $secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
+    ->where('agence_id', $agenceId)
     ->groupBy('secteur')
     ->get();
 
@@ -83,11 +101,10 @@ foreach ($secteurs as $secteur) {
     $results2[$secteur->secteur] = $secteur->count;
 }
 
-
 ksort($results2);
 return [
     'labels' => $labels,
-    'datasets' => array_values($dataset['count']),
+    'datasets' => $results,
     'datasets2'=> $results2
 ];
 }
@@ -100,7 +117,8 @@ public function dashboard()
                     ->limit(1)
                     ->pluck('date')
                     ->first();
-    return view(backpack_view('dashboard'), compact('latestAudience'));
+    $agences = Agence::all();               
+    return view(backpack_view('dashboard'), compact('agences','latestAudience'));
 }
 
 
