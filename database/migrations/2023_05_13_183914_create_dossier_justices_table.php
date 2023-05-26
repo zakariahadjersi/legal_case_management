@@ -15,12 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('code_affaire')->default('');
             $table->enum('state',[
-                'Préparation',
+                'en préparation',
                 'inspection de travail',
-                'à la tribunal',
+                'au tribunal',
                 'à la cour',
                 'à la cour suprême',
-                'En Cours',
                 'Gagné',
                 'Perdu',
             ])->nullable();
@@ -28,7 +27,7 @@ return new class extends Migration
                 'Personnel',
                 'Commerciale'
             ])->nullable();
-            $table->float('budget')->nullable();
+            $table->bigInteger('budget')->nullable();
             $table->date('date_fin')->nullable();
             $table->integer('user_id')->unsigned()->default(0);
             $table->integer('avocat_id')->unsigned()->nullable();

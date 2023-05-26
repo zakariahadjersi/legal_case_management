@@ -24,12 +24,11 @@ class DossierJustice extends Model
 
     protected $enums = [
         'state' => [
-            'Préparation',
+            'en préparation',
             "à l\'inspection de travail",
-            'à la tribunal',
+            'au tribunal',
             'à la cour',
             'à la cour suprême',
-            'En Cours',
             'Gagné',
             'Perdu',
         ],
