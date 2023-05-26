@@ -4,6 +4,6 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('dossier-justice') }}"><i class="nav-icon la la-question"></i> Dossier justices</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('avocat') }}"><i class="nav-icon la la-question"></i> Avocats</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('partie-adverse') }}"><i class="nav-icon la la-question"></i> Partie adverses</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('audience') }}"><i class="nav-icon la la-question"></i> Audiences</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('court') }}"><i class="nav-icon la la-question"></i> Courts</a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>

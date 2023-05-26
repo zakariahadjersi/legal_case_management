@@ -26,6 +26,7 @@ return new class extends Migration
                 'perdu',
                 'reporter'
             ])->nullable();
+            $table->json('files')->nullable();
             $table->integer('dossier_justice_id')->unsigned()->nullable();
             $table->integer('court_id')->unsigned()->nullable();
             $table->timestamps();

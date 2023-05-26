@@ -59,6 +59,7 @@ class AudienceCrudController extends CrudController
             'type'      =>  'enum',
         ]);
         CRUD::column('resultat');
+        
 
         /**
          * Columns can be defined using the fluent syntax or array syntax:
@@ -103,6 +104,13 @@ class AudienceCrudController extends CrudController
             'name'      =>  'resultat',
             'label'     =>  'Resultat',
             'type'      =>  'enum',
+        ]);
+        CRUD::addField([
+            'name'      => 'files',
+            'label'     => 'Fichiers',
+            'type'      => 'upload_multiple',
+            'upload'    => true,
+            'disk'      => 'uploads',
         ]);
 
         /**
