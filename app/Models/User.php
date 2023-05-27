@@ -27,6 +27,7 @@ class User extends Authenticatable
         'matricule',
         'email',
         'password',
+        'agence_id'
     ];
 
     /**
