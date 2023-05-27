@@ -99,8 +99,4 @@ class Audience extends Model
         return $this->belongsTo(Court::class);
     }
 
-    public function documents()
-    {
-        return $this->hasMany(Document::class);
-    }
 }
