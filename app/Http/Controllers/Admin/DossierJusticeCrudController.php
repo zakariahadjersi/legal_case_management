@@ -114,6 +114,11 @@ class DossierJusticeCrudController extends CrudController
             'type'  => 'hidden',
             'value' => backpack_user()->id,
         ],);
+        CRUD::addField([
+            'name'  => 'agence_id',
+            'type'  => 'hidden',
+            'value' => backpack_user()->agence->id,
+        ],);
 
         /**
          * Fields can be defined using the fluent syntax or array syntax:

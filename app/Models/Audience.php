@@ -78,7 +78,10 @@ class Audience extends Model
     {
         $attribute_name = "files";
         $disk = "uploads";
-        $destination_path = "uploads/folder_1/";
+        $agence = $this->dossierJustice->agence->nom;
+        $partieadverse = $this->dossierJustice->partieAdverse->nomprénom;
+        $nomdossier = $this->dossierJustice->code_affaire;
+        $destination_path = "{$agence}/{$partieadverse}/{$nomdossier}/";
         
 
         $this->uploadMultipleFilesToDisk($value, $attribute_name, $disk, $destination_path);
