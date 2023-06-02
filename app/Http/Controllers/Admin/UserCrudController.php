@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserStoreCrudRequest;
 use App\Http\Requests\UserUpdateCrudRequest;
 use Backpack\PermissionManager\app\Http\Controllers\UserCrudController as CrudController;
+use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
 class UserCrudController extends CrudController
 {
@@ -21,6 +22,29 @@ class UserCrudController extends CrudController
         $this->crud->setModel(config('backpack.permissionmanager.models.user'));
         $this->crud->setEntityNameStrings(trans('backpack::permissionmanager.user'), trans('backpack::permissionmanager.users'));
         $this->crud->setRoute(backpack_url('user'));
+
+        $user = backpack_user();
+        $agency = $user->agency;
+    
+        // Super Admin can access all users
+        if ($user->hasRole('Super Admin')) {
+            return;
+        }
+    
+        // Users with Agence Consultant or Agence Author roles cannot access CRUD
+        if ($user->hasRole('Agence Consultant') || $user->hasRole('Agence Author')) {
+            CRUD::denyAccess(['list', 'create', 'delete','update','show']);
+            return;
+        }
+    
+        // Users with Agence Admin role can only see users in their agency
+        if ($user->hasRole('Agence Admin')) {
+            CRUD::addClause('where', 'agency_id', '=', $agency->id);
+            return;
+        }
+    
+        // Deny access if none of the above conditions are met
+        CRUD::denyAccess();
     }
 
     protected function setupShowOperation()

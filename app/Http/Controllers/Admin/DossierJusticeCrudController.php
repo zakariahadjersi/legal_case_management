@@ -32,6 +32,31 @@ class DossierJusticeCrudController extends CrudController
         CRUD::setModel(\App\Models\DossierJustice::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/dossier-justice');
         CRUD::setEntityNameStrings('dossier justice', 'dossier justices');
+
+        $user = backpack_user();
+        $agency = $user->agence_id;
+
+        // Super Admin can access all agencies
+        if ($user->hasRole('Super Admin')) {
+            return;
+        }
+
+        // Agency Consultant can only preview and list items that belong to their agency
+        if ($user->hasRole('Agence Consultant')) {
+            CRUD::addClause('where', 'agence_id', '=', $agency);
+            CRUD::denyAccess(['create', 'update', 'delete']);
+            return;
+        }
+
+        // Agency Author or Admin can access, create, delete, and edit items that belong to their agency
+        if ($user->hasRole('Agence Author') || $user->hasRole('Agence Admin')) {
+            CRUD::addClause('where', 'agence_id', '=', $agency);
+            return;
+        }
+
+        // Deny access if none of the above conditions are met
+        CRUD::denyAccess();
+       
     }
 
     protected function setupShowOperation()
@@ -78,6 +103,7 @@ class DossierJusticeCrudController extends CrudController
      */
     protected function setupCreateOperation()
     {
+        
         CRUD::setValidation(DossierJusticeRequest::class);
         
         CRUD::field('code_affaire');
@@ -119,7 +145,7 @@ class DossierJusticeCrudController extends CrudController
             'type'  => 'hidden',
             'value' => backpack_user()->agence->id,
         ],);
-
+    
         /**
          * Fields can be defined using the fluent syntax or array syntax:
          * - CRUD::field('price')->type('number');

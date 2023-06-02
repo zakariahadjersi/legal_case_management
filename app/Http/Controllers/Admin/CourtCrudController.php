@@ -29,6 +29,16 @@ class CourtCrudController extends CrudController
         CRUD::setModel(\App\Models\Court::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/court');
         CRUD::setEntityNameStrings('court', 'courts');
+        
+        $user = backpack_user();
+        
+        if ($user->hasRole('Agence Consultant')) {
+            
+            CRUD::denyAccess(['create', 'update', 'delete']);
+            return;
+        }
+
+        
     }
 
     protected function setupShowOperation()

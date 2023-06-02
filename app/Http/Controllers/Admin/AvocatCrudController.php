@@ -29,6 +29,32 @@ class AvocatCrudController extends CrudController
         CRUD::setModel(\App\Models\Avocat::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/avocat');
         CRUD::setEntityNameStrings('avocat', 'avocats');
+
+        $user = backpack_user();
+        $agency = $user->agence;
+
+        // Super Admin can access all agencies
+        if ($user->hasRole('Super Admin')) {
+            return;
+        }
+
+        // Agency Consultant can only preview and list defendants associated with cases that belong to their agency
+        if ($user->hasRole('Agence Consultant')) {
+            $caseIds = $agency->dossierJustices()->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'id', $caseIds);
+            CRUD::denyAccess(['create', 'update', 'delete']);
+            return;
+        }
+
+        // Agency Author or Admin can access, create, delete, and edit defendants associated with cases that belong to their agency
+        if ($user->hasRole('Agence Author') || $user->hasRole('Agence Admin')) {
+            $caseIds = $agency->dossierJustices()->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'id', $caseIds);
+            return;
+        }
+
+        // Deny access if none of the above conditions are met
+        CRUD::denyAccess();
     }
 
 
