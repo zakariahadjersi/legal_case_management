@@ -24,7 +24,7 @@ class UserCrudController extends CrudController
         $this->crud->setRoute(backpack_url('user'));
 
         $user = backpack_user();
-        $agency = $user->agency;
+        $agency = $user->agence;
     
         // Super Admin can access all users
         if ($user->hasRole('Super Admin')) {
@@ -39,7 +39,7 @@ class UserCrudController extends CrudController
     
         // Users with Agence Admin role can only see users in their agency
         if ($user->hasRole('Agence Admin')) {
-            CRUD::addClause('where', 'agency_id', '=', $agency->id);
+            CRUD::addClause('where', 'agence_id', '=', $agency->id);
             return;
         }
     
