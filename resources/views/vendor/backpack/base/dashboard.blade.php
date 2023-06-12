@@ -27,36 +27,31 @@
 @endphp
 
 @section('content')
-<div class="row">
-<div class="container-fluid animated fadeIn">
-
-    <div class="col-sm-8 col-md-6">	
-        <div class="card">
-            <div class="card-header">Prochaine Audience</div>
-            <div class="card-body">
-                {{$latestAudience ?? 'aucune audience prévue'}}
-            </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">Prochaine Audience</div>
+        <div class="card-body">
+          {{$latestAudience ?? 'aucune audience prévue'}}
+          {{$latestAudienceHeure}}
+          {{$latestAudienceCour}}
         </div>
-    </div>       
-</div>
-<div style="margin-left: 100px;" class="row">
-  <form class="form-group row" id="agenceForm">
-    <label class="col-md-6 col-form-label" for="agenceSelect">Sélectionnez une agence :</label>
-    <select class="form-control form-control-lg" id="agenceSelect" name="agence_id">
-      <option value="0">Please select</option>
-      @foreach($agences as $agence)
-        <option value="{{ $agence->id }}">{{ $agence->nom }}</option>
-      @endforeach
-    </select>
-    <button class="btn btn-square btn-block btn-secondary active" type="submit">Sélectionnez</button>
-  </form>
+      </div>
     </div>
-<div class="row">
-  <canvas id="myChart" width="800" height="400" ></canvas>
+  </div>
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+      <canvas id="myChart" width="600" height="400"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="myChart2" width="600" height="400"></canvas>
+    </div>
+  </div>
 </div>
-<div class="row">
-  <canvas id="myChart2" width="800" height="400" ></canvas>
-</div>
+
+
+
 
 @endsection 
 
@@ -65,14 +60,7 @@
 
 <script>
   const ctx = document.getElementById('myChart');
-  const form = document.getElementById('agenceForm');
-
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const agenceId = document.getElementById('agenceSelect').value;
-
-    fetch("{{ route('chart') }}?agence_id=" + agenceId)
+    fetch("{{ route('chart') }}")
   .then(response => response.json())
   .then(json => {
         new Chart(ctx, {
@@ -100,19 +88,10 @@
         }
       });
 });
-  });
-  
 </script>
 <script>
     const ctx2 = document.getElementById('myChart2');
-    const form2 = document.getElementById('agenceForm');
-
-form2.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  const agenceId = document.getElementById('agenceSelect').value;
-
-  fetch("{{ route('chart') }}?agence_id=" + agenceId)
+     fetch("{{ route('chart') }}")
     .then(response => response.json())
     .then(json => {
           new Chart(ctx2, {
@@ -139,8 +118,7 @@ form2.addEventListener('submit', function(event) {
             }
           }
         });
-  });
-});    
+  }); 
 </script>
   
 @endsection 
