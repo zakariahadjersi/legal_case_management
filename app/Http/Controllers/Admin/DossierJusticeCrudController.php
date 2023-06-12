@@ -29,10 +29,11 @@ class DossierJusticeCrudController extends CrudController
      */
     public function setup()
     {
+        $this->crud->setListView('customlist');
         CRUD::setModel(\App\Models\DossierJustice::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/dossier-justice');
         CRUD::setEntityNameStrings('dossier justice', 'dossier justices');
-
+        
         $user = backpack_user();
         $agency = $user->agence_id;
 
@@ -73,7 +74,7 @@ class DossierJusticeCrudController extends CrudController
      */
     protected function setupListOperation()
     {
-    
+        
         CRUD::column('code_affaire');
         CRUD::addColumn([
             'name'      => 'partie_adverse_id',
@@ -86,8 +87,8 @@ class DossierJusticeCrudController extends CrudController
 
         CRUD::column('secteur');
         CRUD::column('date_fin');
-        
-
+        $this->applySecteurFilter();
+        $this->applyStateFilter();
         /**
          * Columns can be defined using the fluent syntax or array syntax:
          * - CRUD::column('price')->type('number');
@@ -95,6 +96,22 @@ class DossierJusticeCrudController extends CrudController
          */
     }
 
+    private function applySecteurFilter()
+    {
+        if (request()->has('filter_secteur')) {
+            $filterValue = request('filter_secteur');
+            
+            $this->crud->addClause('where', 'secteur', $filterValue);
+        }
+    }
+
+    private function applyStateFilter()
+    {
+        if (request()->has('filter_state')) {
+            $filterValue = request('filter_state');
+            $this->crud->addClause('where', 'state', $filterValue);
+        }
+    }
     /**
      * Define what happens when the Create operation is loaded.
      * 

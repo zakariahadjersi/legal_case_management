@@ -11,7 +11,7 @@
 </li>    
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('avocat') }}"><i class="nav-icon la la-user-secret"></i> Avocats</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('court') }}"><i class="nav-icon la la-institution"></i> Courts</a></li>
-<li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>{{ trans('backpack::crud.file_manager') }}</span></a></li>
+<li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>Gestion des Fichiers</span></a></li>
 <!-- Users, Roles, Permissions -->
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>

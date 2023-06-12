@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Auth\RegisterController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Models\DossierJustice;
 
 // --------------------------
 // Custom Backpack Routes
@@ -29,6 +30,13 @@ Route::group(['middleware' => [config('backpack.base.web_middleware', 'web')]], 
         'uses' => 'App\Http\Controllers\Admin\CustomNotificationCrudController@dismiss',
         'as' => 'crud.notification.dismiss',
     ]);
+    // Route::post('admin/secteur/filter', function (Illuminate\Http\Request $request) {
+    //     $secteur = $request->input('secteur');
+    //     dd($secteur);
+    //     $data = DossierJustice::where('secteur', $secteur)->get();
+    
+    //     return view('customlist', compact('data'));
+    // })->name('secteur.filter');
 });
 
 Route::group([
