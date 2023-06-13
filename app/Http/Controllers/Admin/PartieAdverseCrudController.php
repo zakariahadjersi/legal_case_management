@@ -29,27 +29,19 @@ class PartieAdverseCrudController extends CrudController
         CRUD::setModel(\App\Models\PartieAdverse::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/partie-adverse');
         CRUD::setEntityNameStrings('partie adverse', 'partie adverses');
+        
+    
 
         $user = backpack_user();
-        $agency = $user->agence;
 
         // Super Admin can access all agencies
-        if ($user->hasRole('Super Admin')) {
+        if ($user->hasRole('Super Admin') || $user->hasRole('Direction Admin') || $user->hasRole('Agence Admin') || $user->hasRole('Agence Author') || $user->hasRole('Direction Author') ) {
             return;
         }
 
-        // Agency Consultant can only preview and list defendants associated with cases that belong to their agency
-        if ($user->hasRole('Agence Consultant')) {
-            $caseIds = $agency->dossierJustices()->pluck('id')->toArray();
-            CRUD::addClause('whereIn', 'id', $caseIds);
+        
+        if ($user->hasRole('Agence Consultant') || $user->hasRole('Direction Consultant') ) {
             CRUD::denyAccess(['create', 'update', 'delete']);
-            return;
-        }
-
-        // Agency Author or Admin can access, create, delete, and edit defendants associated with cases that belong to their agency
-        if ($user->hasRole('Agence Author') || $user->hasRole('Agence Admin')) {
-            $caseIds = $agency->dossierJustices()->pluck('id')->toArray();
-            CRUD::addClause('whereIn', 'id', $caseIds);
             return;
         }
 

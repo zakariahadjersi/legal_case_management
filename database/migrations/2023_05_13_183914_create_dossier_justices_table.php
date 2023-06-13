@@ -32,7 +32,7 @@ return new class extends Migration
             $table->integer('user_id')->unsigned()->default(0);
             $table->integer('avocat_id')->unsigned()->nullable();
             $table->integer('agence_id')->unsigned()->nullable();
-            $table->integer('partie_adverse_id')->unsigned();      
+            $table->integer('partie_adverse_id')->unsigned()->nullable();      
             $table->timestamps();
             
         });

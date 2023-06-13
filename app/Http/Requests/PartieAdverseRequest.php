@@ -26,7 +26,6 @@ class PartieAdverseRequest extends FormRequest
     {
         return [
             'nomprénom' => 'required|min:5|max:255',
-            //'naturecontractant'  => 'required',
         ];
     }
 
@@ -39,7 +38,6 @@ class PartieAdverseRequest extends FormRequest
     {
         return [
             'nomprénom' => 'nom complete de personnel ou entreprise ',
-            'naturecontractant'  => 'Nature de contractant',
         ];
     }
 
@@ -52,7 +50,6 @@ class PartieAdverseRequest extends FormRequest
     {
         return [
             'nomprénom' => 'nom complete de personnel ou entreprise est requis ',
-            //'naturecontractant'  => 'Nature de contractant est requis',
         ];
     }
 }

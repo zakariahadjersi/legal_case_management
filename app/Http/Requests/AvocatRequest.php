@@ -39,7 +39,7 @@ class AvocatRequest extends FormRequest
     {
         return [
             'nomprénom' => 'nom et prénom ',
-            'telephone' => 'numéro de telephone'
+           
         ];
     }
 
@@ -52,7 +52,7 @@ class AvocatRequest extends FormRequest
     {
         return [
             'nomprénom' => 'nom et prénom sont requis ',
-            'telephone' => 'numéro de telephone est requis'
+            
         ];
     }
 }

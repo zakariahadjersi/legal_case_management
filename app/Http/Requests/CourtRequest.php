@@ -38,7 +38,7 @@ class CourtRequest extends FormRequest
     public function attributes()
     {
         return [
-            'telephone' => 'numéro de telephone',
+            
             'type'      => 'type de cour'
         ];
     }

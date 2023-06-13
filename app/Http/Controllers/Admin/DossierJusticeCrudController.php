@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Avocat;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\DossierJusticeRequest;
+use App\Models\Agence;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
@@ -39,6 +40,20 @@ class DossierJusticeCrudController extends CrudController
 
         // Super Admin can access all agencies
         if ($user->hasRole('Super Admin')) {
+            return;
+        }
+
+        if ($user->hasRole('Direction Consultant')) {
+            $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'agence_id', $agencyIds);
+            CRUD::denyAccess(['create', 'update', 'delete']);
+            return;
+        }
+
+        if ($user->hasRole('Direction Author') || $user->hasRole('Direction Admin')) {
+            $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'agence_id', $agencyIds);
+            CRUD::denyAccess(['create', 'update', 'delete']);
             return;
         }
 

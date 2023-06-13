@@ -32,11 +32,19 @@ class UserCrudController extends CrudController
         }
     
         // Users with Agence Consultant or Agence Author roles cannot access CRUD
-        if ($user->hasRole('Agence Consultant') || $user->hasRole('Agence Author')) {
+        if ($user->hasRole('Agence Consultant') || $user->hasRole('Agence Author') || $user->hasRole('Direction Author') || $user->hasRole('Direction Consultant')) {
             CRUD::denyAccess(['list', 'create', 'delete','update','show']);
             return;
         }
-    
+        
+        if ($user->hasRole('Direction Admin')) {
+            
+            $direction = $agency->direction;
+            $agencies = $direction->agencies;
+            $agencyIds = $agencies->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'agence_id', $agencyIds);
+        }
+
         // Users with Agence Admin role can only see users in their agency
         if ($user->hasRole('Agence Admin')) {
             CRUD::addClause('where', 'agence_id', '=', $agency->id);

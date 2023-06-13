@@ -13,11 +13,15 @@
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('court') }}"><i class="nav-icon la la-institution"></i> Courts</a></li>
 <li class="nav-item"><a class="nav-link" href="{{ backpack_url('elfinder') }}"><i class="nav-icon la la-files-o"></i> <span>Gestion des Fichiers</span></a></li>
 <!-- Users, Roles, Permissions -->
+@if (backpack_user()->hasRole('Super Admin') || backpack_user()->hasRole('Agence Admin') || backpack_user()->hasRole('Direction Admin'))
 <li class="nav-item nav-dropdown">
     <a class="nav-link nav-dropdown-toggle" href="#"><i class="nav-icon la la-users"></i> Authentication</a>
     <ul class="nav-dropdown-items">
-        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Users</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ backpack_url('user') }}"><i class="nav-icon la la-user"></i> <span>Utilisateurs</span></a></li>
+        @if (backpack_user()->hasRole('Super Admin'))
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('role') }}"><i class="nav-icon la la-id-badge"></i> <span>Roles</span></a></li>
         <li class="nav-item"><a class="nav-link" href="{{ backpack_url('permission') }}"><i class="nav-icon la la-key"></i> <span>Permissions</span></a></li>
+        @endif
     </ul>
 </li>
+@endif

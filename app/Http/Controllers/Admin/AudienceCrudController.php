@@ -40,6 +40,27 @@ class AudienceCrudController extends CrudController
             return;
         }
 
+        if ($user->hasRole('Direction Consultant')) {
+
+            $direction = $agency->direction;
+            $agencies = $direction->agencies;
+            $caseIds = $agencies->pluck('dossierJustices')->flatten()->pluck('id')->toArray();
+            $audienceIds = Audience::whereIn('dossier_justice_id', $caseIds)->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'id', $audienceIds);
+            CRUD::denyAccess(['create', 'update', 'delete']);
+            return;
+        }
+
+        if ($user->hasRole('Direction Author') || $user->hasRole('Direction Admin')) {
+
+            $direction = $agency->direction;
+            $agencies = $direction->agencies;
+            $caseIds = $agencies->pluck('dossierJustices')->flatten()->pluck('id')->toArray();
+            $audienceIds = Audience::whereIn('dossier_justice_id', $caseIds)->pluck('id')->toArray();
+            CRUD::addClause('whereIn', 'id', $audienceIds);
+            return;
+        }
+
         // Agency Consultant can only preview and list audiences associated with cases that belong to their agency
         if ($user->hasRole('Agence Consultant')) {
             $caseIds = $agency->dossierJustices()->pluck('id')->toArray();
