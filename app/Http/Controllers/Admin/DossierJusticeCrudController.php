@@ -78,6 +78,14 @@ class DossierJusticeCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
+        CRUD::addColumn([
+            'name'      => 'audiences',
+            'label'     => 'Audiences',
+            'type'      => 'select_multiple',
+            'attribute' => 'date',
+            'entity'    => 'audiences',
+            'model'     => 'App\Models\Audience',
+        ],);
         $this->autoSetupShowOperation();
     }
 

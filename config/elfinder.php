@@ -64,8 +64,19 @@ return [
     |
     */
 
-    'roots' => null,
-
+    'roots' => [
+        // ...
+        [
+            'driver'        => 'LocalFileSystem',   // driver for accessing file system (REQUIRED)
+            'path'          => public_path() . '/storage', // path where your uploads are stored
+            'alias'         => 'Uploads',  // optional alias name for display purpose
+            'accessControl'=> 'Barryvdh\Elfinder\Elfinder::checkAccess',
+            //'mimeDetect'    => 'internal',
+            //'tmbPath'       => storage_path().'/thumbnails',
+            
+        // other options if needed...
+        ],
+    ],
     /*
     |--------------------------------------------------------------------------
     | Options

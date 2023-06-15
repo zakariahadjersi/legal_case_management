@@ -46,8 +46,9 @@ return [
 
         'uploads' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/legal_case_management/storage/app/public',
+            'root' => public_path() . '/storage',
+            'throw' => false,
+            
         ],
 
         's3' => [
