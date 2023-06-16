@@ -133,9 +133,12 @@ class AudienceCrudController extends CrudController
         CRUD::addField([
             'name'      =>  'dossier_justice_id',
             'label'     =>  'Dossier Concerné',
-            'type'      =>  'select',
+            'type'      =>  'selectsearch',
             'attribute' =>  'code_affaire',
             'entity'    =>  'dossierJustice',
+            'options'   => (function ($query) {
+                return $query->orderBy('code_affaire', 'ASC')->get();
+            }),
          ]);
         CRUD::addField([
             'name'      =>  'typecourt',
@@ -146,9 +149,12 @@ class AudienceCrudController extends CrudController
             'name'      =>  'court_id',
             'key'       =>  'adress',
             'label'     =>  'Adresse de Cour',
-            'type'      =>  'select',
+            'type'      =>  'selectsearch',
             'attribute' =>  'adresse',
-            'entity'    =>  'court'
+            'entity'    =>  'court',
+            'options'   => (function ($query) {
+                return $query->orderBy('adresse', 'ASC')->get();
+            }),
         ]);
         CRUD::addField([
             'name'      =>  'resultat',

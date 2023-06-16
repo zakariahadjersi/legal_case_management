@@ -86,6 +86,14 @@ class DossierJusticeCrudController extends CrudController
             'entity'    => 'audiences',
             'model'     => 'App\Models\Audience',
         ],);
+        CRUD::addColumn([
+            'name'      => 'avocat',
+            'label'     => 'Avocat',
+            'type'      => 'select',
+            'attribute' => 'nomprénom',
+            'entity'    => 'avocat',
+            'model'     => 'App\Models\Avocat',
+        ],);
         $this->autoSetupShowOperation();
     }
 
@@ -109,7 +117,6 @@ class DossierJusticeCrudController extends CrudController
         CRUD::column('state')->label('Etat');
 
         CRUD::column('secteur');
-        CRUD::column('date_fin');
         $this->applySecteurFilter();
         $this->applyStateFilter();
         /**
@@ -162,16 +169,22 @@ class DossierJusticeCrudController extends CrudController
         CRUD::addField([
             'name'      => 'partie_adverse_id',
             'label'     => 'Partie Adverse',
-            'type'      => 'select',
+            'type'      => 'selectsearch',
             'attribute' => 'nomprénom',
             'entity'    => 'partieAdverse',
+            'options'   => (function ($query) {
+                return $query->orderBy('nomprénom', 'ASC')->get();
+            }), 
         ],);
         CRUD::addField([
             'name'      => 'avocat_id',
             'label'     => 'Avocat',
-            'type'      => 'select',
+            'type'      => 'selectsearch',
             'attribute' => 'nomprénom',
             'entity'    => 'avocat',
+            'options'   => (function ($query) {
+                return $query->orderBy('nomprénom', 'ASC')->get();
+            }),
         ],);
         CRUD::field('budget');
         CRUD::field('date_fin');
