@@ -21,7 +21,7 @@ public function getChartData()
 {
     $labels = [
         'en préparation',
-        "à l'inspection de travail",
+        "inspection de travail",
         'au tribunal',
         'à la cour',
         'à la cour suprême',
@@ -30,6 +30,9 @@ public function getChartData()
     ];
 
 $user = backpack_user();    
+if ($user == null) {
+    return redirect()->route('backpack.auth.login');
+}
 $agenceId = $user->agence_id;
 $direction = backpack_user()->agence->direction;
 $touslesagence = $direction->agences->pluck('id');
@@ -86,7 +89,7 @@ foreach ($states as $state) {
 
 ksort($results);
 $secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
-    ->where('agence_id', $agenceId)
+    ->whereIn('agence_id', $touslesagence)
     ->groupBy('secteur')
     ->get();
 
@@ -147,7 +150,9 @@ return [
 
 public function dashboard()
 {   $user = backpack_user();  
-
+    if ($user == null) {
+        return redirect()->route('backpack.auth.login');
+    }
     // Super Admin is shown the closest audience in all CTC
     if ($user->hasRole('Super Admin')) {
     $latestAudienceData = Audience::select('date', 'heur', 'court_id')

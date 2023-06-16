@@ -43,7 +43,7 @@ class AudienceCrudController extends CrudController
         if ($user->hasRole('Direction Consultant')) {
 
             $direction = $agency->direction;
-            $agencies = $direction->agencies;
+            $agencies = $direction->agences;
             $caseIds = $agencies->pluck('dossierJustices')->flatten()->pluck('id')->toArray();
             $audienceIds = Audience::whereIn('dossier_justice_id', $caseIds)->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'id', $audienceIds);
@@ -54,7 +54,7 @@ class AudienceCrudController extends CrudController
         if ($user->hasRole('Direction Author') || $user->hasRole('Direction Admin')) {
 
             $direction = $agency->direction;
-            $agencies = $direction->agencies;
+            $agencies = $direction->agences;
             $caseIds = $agencies->pluck('dossierJustices')->flatten()->pluck('id')->toArray();
             $audienceIds = Audience::whereIn('dossier_justice_id', $caseIds)->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'id', $audienceIds);
@@ -85,7 +85,13 @@ class AudienceCrudController extends CrudController
     protected function setupShowOperation()
     {
         $this->setupListOperation();
-        $this->autoSetupShowOperation();
+        CRUD::addColumn([
+            'name'      => 'files',
+            'label'     => 'Fichiers',
+            'type'      => 'upload_multiple',
+            'disk'      => 'uploads',
+        ]);
+       // $this->autoSetupShowOperation();
     }
     /**
      * Define what happens when the List operation is loaded.
@@ -103,6 +109,14 @@ class AudienceCrudController extends CrudController
             'attribute' =>  'code_affaire',
             'entity'    =>  'dossierJustice',
          ]);
+         CRUD::addColumn([
+            'name'      =>  'court_id',
+            'key'       =>  'adress',
+            'label'     =>  'Adresse de Cour',
+            'type'      =>  'select',
+            'attribute' =>  'adresse',
+            'entity'    =>  'court'
+        ]);
          CRUD::addColumn([
             'name'      =>  'typecourt',
             'label'     =>  'Type Cour',
@@ -129,7 +143,7 @@ class AudienceCrudController extends CrudController
         CRUD::setValidation(AudienceRequest::class);
 
         CRUD::field('date')->label('Date Audience');
-        CRUD::field('heur')->label('Heur Audience');
+        CRUD::field('heur')->label('Heure Audience');
         CRUD::addField([
             'name'      =>  'dossier_justice_id',
             'label'     =>  'Dossier Concerné',

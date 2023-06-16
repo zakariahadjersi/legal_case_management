@@ -40,9 +40,10 @@ class UserCrudController extends CrudController
         if ($user->hasRole('Direction Admin')) {
             
             $direction = $agency->direction;
-            $agencies = $direction->agencies;
+            $agencies = $direction->agences;
             $agencyIds = $agencies->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'agence_id', $agencyIds);
+            return;
         }
 
         // Users with Agence Admin role can only see users in their agency

@@ -45,7 +45,7 @@ class DossierJusticeCrudController extends CrudController
 
         if ($user->hasRole('Direction Consultant')) {
             $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
-            CRUD::addClause('whereIn', 'agence_id', $agencyIds);
+            CRUD::addClause('whereIn', 'agence_id', $agencyIds);    
             CRUD::denyAccess(['create', 'update', 'delete']);
             return;
         }
@@ -53,7 +53,7 @@ class DossierJusticeCrudController extends CrudController
         if ($user->hasRole('Direction Author') || $user->hasRole('Direction Admin')) {
             $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'agence_id', $agencyIds);
-            CRUD::denyAccess(['create', 'update', 'delete']);
+            //CRUD::denyAccess(['create', 'update', 'delete']);
             return;
         }
 
