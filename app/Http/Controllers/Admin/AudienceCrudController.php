@@ -79,7 +79,7 @@ class AudienceCrudController extends CrudController
         }
 
         // Deny access if none of the above conditions are met
-        CRUD::denyAccess();
+        CRUD::denyAccess(['create', 'update', 'delete','list','show']);
     }
 
     protected function setupShowOperation()

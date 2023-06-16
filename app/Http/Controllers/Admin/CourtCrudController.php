@@ -32,11 +32,12 @@ class CourtCrudController extends CrudController
         
         $user = backpack_user();
         
-        if ($user->hasRole('Agence Consultant') || $user->hasRole('Direction Consultant')) {
-            
-            CRUD::denyAccess(['create', 'update', 'delete']);
+        if ($user->hasRole('Super Admin') || $user->hasRole('Direction Admin') || $user->hasRole('Agence Admin')) {
             return;
         }
+    
+        // Deny access if none of the above conditions are met
+        CRUD::denyAccess(['create', 'update', 'delete','list','show']);
 
         
     }

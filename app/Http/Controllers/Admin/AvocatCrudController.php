@@ -34,18 +34,12 @@ class AvocatCrudController extends CrudController
 
         $user = backpack_user();
     
-        if ($user->hasRole('Super Admin') || $user->hasRole('Direction Admin') || $user->hasRole('Agence Admin') || $user->hasRole('Agence Author') || $user->hasRole('Direction Author') ) {
-            return;
-        }
-
-       
-        if ($user->hasRole('Direction Consultant') || $user->hasRole('Agence Consultant')) {
-            CRUD::denyAccess(['create', 'update', 'delete']);
+        if ($user->hasRole('Super Admin') || $user->hasRole('Direction Admin') || $user->hasRole('Agence Admin')) {
             return;
         }
     
         // Deny access if none of the above conditions are met
-        CRUD::denyAccess();
+        CRUD::denyAccess(['create', 'update', 'delete','list','show']);
     }
 
 
