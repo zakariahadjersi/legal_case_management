@@ -188,9 +188,12 @@ class UserCrudController extends CrudController
             [
                 'name'      => 'agence_id',
                 'label'     => 'Agence',
-                'type'      => 'select',
+                'type'      => 'selectsearch',
                 'attribute' => 'nom',
                 'entity'    => 'agence',
+                'options'   => (function ($query) {
+                    return $query->orderBy('nom', 'ASC')->get();
+                }),
             ],
             [
                 'name'  => 'password',
