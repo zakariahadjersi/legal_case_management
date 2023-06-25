@@ -18,6 +18,7 @@ class PartieAdverseCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -41,12 +42,12 @@ class PartieAdverseCrudController extends CrudController
 
         
         if ($user->hasRole('Agence Consultant') || $user->hasRole('Direction Consultant') ) {
-            CRUD::denyAccess(['create', 'update', 'delete']);
+            CRUD::denyAccess(['create', 'update', 'delete','revise']);
             return;
         }
 
         // Deny access if none of the above conditions are met
-        CRUD::denyAccess(['create', 'update', 'delete','list','show']);
+        CRUD::denyAccess(['create', 'update', 'delete','list','show','revise']);
     }
 
     protected function setupShowOperation()

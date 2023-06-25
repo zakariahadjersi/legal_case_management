@@ -22,6 +22,7 @@ class DossierJusticeCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\UpdateOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
+    use \Backpack\ReviseOperation\ReviseOperation;
 
     /**
      * Configure the CrudPanel object. Apply settings to all operations.
@@ -46,21 +47,21 @@ class DossierJusticeCrudController extends CrudController
         if ($user->hasRole('Direction Consultant')) {
             $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'agence_id', $agencyIds);    
-            CRUD::denyAccess(['create', 'update', 'delete']);
+            CRUD::denyAccess(['create', 'update', 'delete','revise']);
             return;
         }
 
         if ($user->hasRole('Direction Author') || $user->hasRole('Direction Admin')) {
             $agencyIds = Agence::where('direction_id', '=', $user->agence->direction_id)->pluck('id')->toArray();
             CRUD::addClause('whereIn', 'agence_id', $agencyIds);
-            //CRUD::denyAccess(['create', 'update', 'delete']);
+            
             return;
         }
 
         // Agency Consultant can only preview and list items that belong to their agency
         if ($user->hasRole('Agence Consultant')) {
             CRUD::addClause('where', 'agence_id', '=', $agency);
-            CRUD::denyAccess(['create', 'update', 'delete']);
+            CRUD::denyAccess(['create', 'update', 'delete','revise']);
             return;
         }
 
@@ -71,7 +72,7 @@ class DossierJusticeCrudController extends CrudController
         }
 
         // Deny access if none of the above conditions are met
-        CRUD::denyAccess(['create', 'update', 'delete','list','show']);
+        CRUD::denyAccess(['create', 'update', 'delete','list','show','revise']);
        
     }
 
