@@ -51,7 +51,7 @@ foreach ($states as $state) {
     $results[$state->state] = $state->count;
 }
 
-ksort($results);
+//ksort($results);
 $secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
     ->groupBy('secteur')
     ->get();
@@ -64,7 +64,7 @@ foreach ($secteurs as $secteur) {
     $results2[$secteur->secteur] = $secteur->count;
 }
 
-ksort($results2);
+//ksort($results2);
 return [
     'labels' => $labels,
     'datasets' => $results,
@@ -87,7 +87,7 @@ foreach ($states as $state) {
     $results[$state->state] = $state->count;
 }
 
-ksort($results);
+//ksort($results);
 $secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
     ->whereIn('agence_id', $touslesagence)
     ->groupBy('secteur')
@@ -101,7 +101,7 @@ foreach ($secteurs as $secteur) {
     $results2[$secteur->secteur] = $secteur->count;
 }
 
-ksort($results2);
+//ksort($results2);
 return [
     'labels' => $labels,
     'datasets' => $results,
@@ -124,7 +124,7 @@ foreach ($states as $state) {
     $results[$state->state] = $state->count;
 }
 
-ksort($results);
+//ksort($results);
 $secteurs = DossierJustice::select('secteur', DB::raw('COUNT(*) as count'))
     ->where('agence_id', $agenceId)
     ->groupBy('secteur')
@@ -138,7 +138,7 @@ foreach ($secteurs as $secteur) {
     $results2[$secteur->secteur] = $secteur->count;
 }
 
-ksort($results2);
+//ksort($results2);
 return [
     'labels' => $labels,
     'datasets' => $results,
