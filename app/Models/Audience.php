@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Alert;
 use Illuminate\Support\Arr;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
@@ -88,9 +89,20 @@ class Audience extends Model
     }
 
     public function getFilesAttribute($value)
-{
-    return json_decode($value, true);
-}
+    {
+        return json_decode($value, true);
+    }
+
+    protected static function booted()
+    {
+        static::saving(function ($audience) {
+            // Compare the chosen date with today's date
+            if ($audience->date < now()->toDateString()) {
+                // Add a flash message to the session
+                Alert::add('warning', 'La date choisie est dans le passé.')->flash();
+            }
+        });
+    }
 
     public function dossierJustice()
     {
