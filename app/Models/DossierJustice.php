@@ -5,11 +5,13 @@ namespace App\Models;
 use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Venturecraft\Revisionable\RevisionableTrait;
 
 class DossierJustice extends Model
 {
     use CrudTrait;
     use HasFactory;
+    use RevisionableTrait;
 
     protected $fillable = [
         'code_affaire',
@@ -40,7 +42,15 @@ class DossierJustice extends Model
     ];
 
    
+    public function identifiableName()
+    {
+        return $this->code_affaire;
+    }
 
+    public static function boot()
+    {
+        parent::boot();
+    }
     
 
     public function user(){

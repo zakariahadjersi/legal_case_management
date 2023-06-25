@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Backpack\CRUD\app\Models\Traits\CrudTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
+use Venturecraft\Revisionable\RevisionableTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PartieAdverse extends Model
 {
     use CrudTrait;
     use HasFactory;
+    use RevisionableTrait;
 
     protected $fillable = [
         'nomprénom',
@@ -35,6 +37,16 @@ class PartieAdverse extends Model
             'Privé','Public'
         ]
     ];
+
+    public function identifiableName()
+    {
+        return $this->nomprénom;
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+    }
 
     public function dossierJustices()
     {

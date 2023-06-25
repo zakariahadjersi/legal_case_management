@@ -30,13 +30,12 @@ Route::group(['middleware' => [config('backpack.base.web_middleware', 'web')]], 
         'uses' => 'App\Http\Controllers\Admin\CustomNotificationCrudController@dismiss',
         'as' => 'crud.notification.dismiss',
     ]);
-    // Route::post('admin/secteur/filter', function (Illuminate\Http\Request $request) {
-    //     $secteur = $request->input('secteur');
-    //     dd($secteur);
-    //     $data = DossierJustice::where('secteur', $secteur)->get();
-    
-    //     return view('customlist', compact('data'));
-    // })->name('secteur.filter');
+    if (config('backpack.base.setup_my_account_routes')) {
+        Route::get('edit-account-info', 'App\Http\Controllers\Admin\Auth\MyCustomAccountController@getAccountInfoForm')->name('backpack.account.info');
+        Route::post('edit-account-info', 'App\Http\Controllers\Admin\Auth\MyCustomAccountController@postAccountInfoForm')->name('backpack.account.info.store');
+        Route::post('change-password', 'App\Http\Controllers\Admin\Auth\MyCustomAccountController@postChangePasswordForm')->name('backpack.account.password');
+    }
+   
 });
 
 Route::group([
